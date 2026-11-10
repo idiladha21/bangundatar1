@@ -1799,24 +1799,133 @@
       document.getElementById('quick-calc-result').classList.add('hidden');
 
       let html = '';
-      if (shapeType === 'persegi') {
-        html = `<div><label class="block text-xs font-bold text-slate-600 mb-1">Panjang Sisi (cm)</label><input type="number" id="c-sisi" value="10" min="1" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm"></div>`;
-      } else if (shapeType === 'segitiga_heron') {
-        html = `
-          <div><label class="block text-xs font-bold text-slate-600 mb-1">Sisi a (cm)</label><input type="number" id="c-ha" value="6" min="1" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm"></div>
-          <div><label class="block text-xs font-bold text-slate-600 mb-1">Sisi b (cm)</label><input type="number" id="c-hb" value="8" min="1" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm"></div>
-          <div class="sm:col-span-2"><label class="block text-xs font-bold text-slate-600 mb-1">Sisi c (cm)</label><input type="number" id="c-hc" value="10" min="1" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm"></div>
-        `;
-      } else if (shapeType === 'segitiga_pythagoras') {
-        html = `
-          <div><label class="block text-xs font-bold text-slate-600 mb-1">Alas a (cm)</label><input type="number" id="c-pa" value="6" min="1" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm"></div>
-          <div><label class="block text-xs font-bold text-slate-600 mb-1">Tinggi b (cm)</label><input type="number" id="c-pb" value="8" min="1" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm"></div>
-        `;
-      } else {
-        html = `
-          <div><label class="block text-xs font-bold text-slate-600 mb-1">Panjang / Alas (cm)</label><input type="number" id="c-p" value="12" min="1" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm"></div>
-          <div><label class="block text-xs font-bold text-slate-600 mb-1">Lebar / Tinggi (cm)</label><input type="number" id="c-l" value="8" min="1" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm"></div>
-        `;
+      switch (shapeType) {
+        case 'persegi':
+          html = `
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-slate-600 mb-1">Panjang Sisi (s) [cm]</label>
+              <input type="number" id="c-sisi" value="10" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>`;
+          break;
+        case 'persegi_panjang':
+          html = `
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Panjang (p) [cm]</label>
+              <input type="number" id="c-panjang" value="12" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Lebar (l) [cm]</label>
+              <input type="number" id="c-lebar" value="8" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>`;
+          break;
+        case 'segitiga_samasisi':
+          html = `
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-slate-600 mb-1">Panjang Sisi (s) [cm]</label>
+              <input type="number" id="c-tri-s" value="10" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>`;
+          break;
+        case 'segitiga_pythagoras':
+          html = `
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Alas (a) [cm]</label>
+              <input type="number" id="c-pa" value="6" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Tinggi (b) [cm]</label>
+              <input type="number" id="c-pb" value="8" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>`;
+          break;
+        case 'segitiga_heron':
+          html = `
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Sisi a [cm]</label>
+              <input type="number" id="c-ha" value="5" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Sisi b [cm]</label>
+              <input type="number" id="c-hb" value="6" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-slate-600 mb-1">Sisi c [cm]</label>
+              <input type="number" id="c-hc" value="7" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>`;
+          break;
+        case 'lingkaran':
+          html = `
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-slate-600 mb-1">Jari-jari (r) [cm]</label>
+              <input type="number" id="c-r" value="7" min="0.1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>`;
+          break;
+        case 'jajaran_genjang':
+          html = `
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Alas (a) [cm]</label>
+              <input type="number" id="c-jg-a" value="12" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Tinggi (t) [cm]</label>
+              <input type="number" id="c-jg-t" value="8" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-slate-600 mb-1">Sisi Miring (b) [cm]</label>
+              <input type="number" id="c-jg-b" value="10" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>`;
+          break;
+        case 'trapesium':
+          html = `
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Sisi Atas (a) [cm]</label>
+              <input type="number" id="c-tr-a" value="8" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Sisi Bawah (b) [cm]</label>
+              <input type="number" id="c-tr-b" value="14" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Tinggi (t) [cm]</label>
+              <input type="number" id="c-tr-t" value="6" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Sisi Miring (c) [cm]</label>
+              <input type="number" id="c-tr-c" value="5" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>`;
+          break;
+        case 'belah_ketupat':
+          html = `
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Diagonal 1 (d₁) [cm]</label>
+              <input type="number" id="c-bk-d1" value="16" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Diagonal 2 (d₂) [cm]</label>
+              <input type="number" id="c-bk-d2" value="12" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-slate-600 mb-1">Sisi (s) [cm] (Opsional: otomatis dihitung jika kosong)</label>
+              <input type="number" id="c-bk-s" placeholder="Otomatis dari d₁ & d₂" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>`;
+          break;
+        case 'layang_layang':
+          html = `
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Diagonal 1 (d₁) [cm]</label>
+              <input type="number" id="c-ll-d1" value="14" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Diagonal 2 (d₂) [cm]</label>
+              <input type="number" id="c-ll-d2" value="18" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Sisi Pendek (a) [cm]</label>
+              <input type="number" id="c-ll-a" value="10" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 mb-1">Sisi Panjang (b) [cm]</label>
+              <input type="number" id="c-ll-b" value="15" min="1" step="any" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-brand-500">
+            </div>`;
+          break;
       }
       inputsGrid.innerHTML = html;
     }
@@ -1825,47 +1934,277 @@
       playSound('click');
       const shapeType = document.getElementById('calc-shape-select').value;
       const resultBox = document.getElementById('quick-calc-result');
-      let stepsHtml = '';
+      let areaStepsHtml = '';
+      let periStepsHtml = '';
+      let shapeTitle = '';
 
-      if (shapeType === 'segitiga_heron') {
-        const a = parseFloat(document.getElementById('c-ha').value) || 0;
-        const b = parseFloat(document.getElementById('c-hb').value) || 0;
-        const c = parseFloat(document.getElementById('c-hc').value) || 0;
-        const s = (a + b + c) / 2;
-        const area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+      const formatNum = (n) => Number.isInteger(n) ? n.toString() : n.toFixed(2).replace(/\.00$/, '');
 
-        stepsHtml = `
-          <div class="border-b border-slate-700 pb-2">
-            <span class="text-xs text-amber-400 font-bold uppercase">Luas Segitiga Sembarang (Rumus Heron)</span>
-            <div class="font-mono text-xs text-slate-300 mt-1">s = ½(${a}+${b}+${c}) = ${s} cm</div>
-            <div class="font-mono text-sm text-amber-300 font-bold mt-1">Luas = √(${s} × ${s-a} × ${s-b} × ${s-c}) = ${area.toFixed(2)} cm²</div>
-          </div>
-        `;
+      if (shapeType === 'persegi') {
+        shapeTitle = 'Persegi';
+        const s = parseFloat(document.getElementById('c-sisi')?.value) || 0;
+        const area = s * s;
+        const peri = 4 * s;
+
+        areaStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> L = s × s</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> L = ${s} × ${s}</div>
+            <div class="text-amber-300 font-bold text-sm"><strong>Hasil Luas:</strong> L = ${formatNum(area)} cm²</div>
+          </div>`;
+
+        periStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> K = 4 × s</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> K = 4 × ${s}</div>
+            <div class="text-emerald-300 font-bold text-sm"><strong>Hasil Keliling:</strong> K = ${formatNum(peri)} cm</div>
+          </div>`;
+
+      } else if (shapeType === 'persegi_panjang') {
+        shapeTitle = 'Persegi Panjang';
+        const p = parseFloat(document.getElementById('c-panjang')?.value) || 0;
+        const l = parseFloat(document.getElementById('c-lebar')?.value) || 0;
+        const area = p * l;
+        const peri = 2 * (p + l);
+
+        areaStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> L = p × l</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> L = ${p} × ${l}</div>
+            <div class="text-amber-300 font-bold text-sm"><strong>Hasil Luas:</strong> L = ${formatNum(area)} cm²</div>
+          </div>`;
+
+        periStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> K = 2 × (p + l)</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> K = 2 × (${p} + ${l}) = 2 × ${p + l}</div>
+            <div class="text-emerald-300 font-bold text-sm"><strong>Hasil Keliling:</strong> K = ${formatNum(peri)} cm</div>
+          </div>`;
+
+      } else if (shapeType === 'segitiga_samasisi') {
+        shapeTitle = 'Segitiga Sama Sisi';
+        const s = parseFloat(document.getElementById('c-tri-s')?.value) || 0;
+        const t = (Math.sqrt(3) / 2) * s;
+        const area = 0.5 * s * t;
+        const peri = 3 * s;
+
+        areaStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Tinggi (t):</strong> t = (√3 / 2) × s ≈ 0.866 × ${s} = ${formatNum(t)} cm</div>
+            <div class="text-slate-400"><strong>Rumus Luas:</strong> L = ½ × a × t</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> L = ½ × ${s} × ${formatNum(t)}</div>
+            <div class="text-amber-300 font-bold text-sm"><strong>Hasil Luas:</strong> L ≈ ${formatNum(area)} cm²</div>
+          </div>`;
+
+        periStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> K = s + s + s = 3 × s</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> K = 3 × ${s}</div>
+            <div class="text-emerald-300 font-bold text-sm"><strong>Hasil Keliling:</strong> K = ${formatNum(peri)} cm</div>
+          </div>`;
+
       } else if (shapeType === 'segitiga_pythagoras') {
-        const a = parseFloat(document.getElementById('c-pa').value) || 0;
-        const b = parseFloat(document.getElementById('c-pb').value) || 0;
+        shapeTitle = 'Segitiga Siku-siku (Pythagoras)';
+        const a = parseFloat(document.getElementById('c-pa')?.value) || 0;
+        const b = parseFloat(document.getElementById('c-pb')?.value) || 0;
         const c = Math.sqrt(a * a + b * b);
         const area = 0.5 * a * b;
+        const peri = a + b + c;
 
-        stepsHtml = `
-          <div class="border-b border-slate-700 pb-2">
-            <span class="text-xs text-emerald-400 font-bold uppercase">Sisi Miring (Pythagoras) & Luas</span>
-            <div class="font-mono text-xs text-slate-300 mt-1">c = √(${a}² + ${b}²) = √${a*a + b*b} = <span class="text-emerald-300 font-bold">${c.toFixed(2)} cm</span></div>
-            <div class="font-mono text-sm text-amber-300 font-bold mt-1">Luas = ½ × ${a} × ${b} = ${area} cm²</div>
-          </div>
-        `;
-      } else {
-        const s = parseFloat(document.getElementById('c-sisi')?.value || document.getElementById('c-p')?.value || 10);
-        stepsHtml = `<div class="font-mono text-sm text-amber-300 font-bold">Hasil Perhitungan = ${(s * s).toFixed(1)} cm²</div>`;
+        areaStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> L = ½ × alas × tinggi</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> L = ½ × ${a} × ${b} = ½ × ${a * b}</div>
+            <div class="text-amber-300 font-bold text-sm"><strong>Hasil Luas:</strong> L = ${formatNum(area)} cm²</div>
+          </div>`;
+
+        periStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Sisi Miring (c):</strong> c = √(a² + b²) = √(${a}² + ${b}²) = √(${a*a} + ${b*b}) = √${a*a + b*b} = ${formatNum(c)} cm</div>
+            <div class="text-slate-400"><strong>Rumus Keliling:</strong> K = a + b + c</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> K = ${a} + ${b} + ${formatNum(c)}</div>
+            <div class="text-emerald-300 font-bold text-sm"><strong>Hasil Keliling:</strong> K = ${formatNum(peri)} cm</div>
+          </div>`;
+
+      } else if (shapeType === 'segitiga_heron') {
+        shapeTitle = 'Segitiga Sembarang (Rumus Heron)';
+        const a = parseFloat(document.getElementById('c-ha')?.value) || 0;
+        const b = parseFloat(document.getElementById('c-hb')?.value) || 0;
+        const c = parseFloat(document.getElementById('c-hc')?.value) || 0;
+
+        if (a + b <= c || a + c <= b || b + c <= a) {
+          resultBox.innerHTML = `<div class="p-4 bg-rose-900/50 border border-rose-700 rounded-2xl text-rose-300 text-xs font-bold">⚠️ Kombinasi sisi (${a}, ${b}, ${c}) tidak memenuhi ketaksamaan segitiga (a+b > c). Mohon periksa nilai input.</div>`;
+          resultBox.classList.remove('hidden');
+          return;
+        }
+
+        const s = (a + b + c) / 2;
+        const area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+        const peri = a + b + c;
+
+        areaStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Setengah Keliling (s):</strong> s = ½ × (${a} + ${b} + ${c}) = ${formatNum(s)} cm</div>
+            <div class="text-slate-400"><strong>Rumus Heron:</strong> L = √(s × (s-a) × (s-b) × (s-c))</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> L = √(${s} × (${s}-${a}) × (${s}-${b}) × (${s}-${c})) = √(${s} × ${s-a} × ${s-b} × ${s-c})</div>
+            <div class="text-amber-300 font-bold text-sm"><strong>Hasil Luas:</strong> L = ${formatNum(area)} cm²</div>
+          </div>`;
+
+        periStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> K = a + b + c</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> K = ${a} + ${b} + ${c}</div>
+            <div class="text-emerald-300 font-bold text-sm"><strong>Hasil Keliling:</strong> K = ${formatNum(peri)} cm</div>
+          </div>`;
+
+      } else if (shapeType === 'lingkaran') {
+        shapeTitle = 'Lingkaran';
+        const r = parseFloat(document.getElementById('c-r')?.value) || 0;
+        const isPi22 = r % 7 === 0;
+        const piStr = isPi22 ? '22/7' : '3.14';
+        const piVal = isPi22 ? (22 / 7) : Math.PI;
+
+        const area = piVal * r * r;
+        const peri = 2 * piVal * r;
+
+        areaStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> L = π × r²</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> L = ${piStr} × ${r}² = ${piStr} × ${r * r}</div>
+            <div class="text-amber-300 font-bold text-sm"><strong>Hasil Luas:</strong> L ≈ ${formatNum(area)} cm²</div>
+          </div>`;
+
+        periStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> K = 2 × π × r</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> K = 2 × ${piStr} × ${r} = ${piStr} × ${2 * r}</div>
+            <div class="text-emerald-300 font-bold text-sm"><strong>Hasil Keliling:</strong> K ≈ ${formatNum(peri)} cm</div>
+          </div>`;
+
+      } else if (shapeType === 'jajaran_genjang') {
+        shapeTitle = 'Jajaran Genjang';
+        const a = parseFloat(document.getElementById('c-jg-a')?.value) || 0;
+        const t = parseFloat(document.getElementById('c-jg-t')?.value) || 0;
+        const b = parseFloat(document.getElementById('c-jg-b')?.value) || 0;
+
+        const area = a * t;
+        const peri = 2 * (a + b);
+
+        areaStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> L = alas × tinggi</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> L = ${a} × ${t}</div>
+            <div class="text-amber-300 font-bold text-sm"><strong>Hasil Luas:</strong> L = ${formatNum(area)} cm²</div>
+          </div>`;
+
+        periStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> K = 2 × (alas + sisi miring) = 2 × (a + b)</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> K = 2 × (${a} + ${b}) = 2 × ${a + b}</div>
+            <div class="text-emerald-300 font-bold text-sm"><strong>Hasil Keliling:</strong> K = ${formatNum(peri)} cm</div>
+          </div>`;
+
+      } else if (shapeType === 'trapesium') {
+        shapeTitle = 'Trapesium Sama Kaki';
+        const a = parseFloat(document.getElementById('c-tr-a')?.value) || 0;
+        const b = parseFloat(document.getElementById('c-tr-b')?.value) || 0;
+        const t = parseFloat(document.getElementById('c-tr-t')?.value) || 0;
+        const c = parseFloat(document.getElementById('c-tr-c')?.value) || 0;
+
+        const area = 0.5 * (a + b) * t;
+        const peri = a + b + (2 * c);
+
+        areaStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> L = ½ × (sisi atas + sisi bawah) × tinggi</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> L = ½ × (${a} + ${b}) × ${t} = ½ × ${a + b} × ${t}</div>
+            <div class="text-amber-300 font-bold text-sm"><strong>Hasil Luas:</strong> L = ${formatNum(area)} cm²</div>
+          </div>`;
+
+        periStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> K = a + b + (2 × c)</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> K = ${a} + ${b} + (2 × ${c}) = ${a + b} + ${2 * c}</div>
+            <div class="text-emerald-300 font-bold text-sm"><strong>Hasil Keliling:</strong> K = ${formatNum(peri)} cm</div>
+          </div>`;
+
+      } else if (shapeType === 'belah_ketupat') {
+        shapeTitle = 'Belah Ketupat';
+        const d1 = parseFloat(document.getElementById('c-bk-d1')?.value) || 0;
+        const d2 = parseFloat(document.getElementById('c-bk-d2')?.value) || 0;
+        let sInput = parseFloat(document.getElementById('c-bk-s')?.value);
+        let sCalculated = false;
+
+        if (isNaN(sInput) || sInput <= 0) {
+          sInput = Math.sqrt(Math.pow(d1 / 2, 2) + Math.pow(d2 / 2, 2));
+          sCalculated = true;
+        }
+
+        const area = 0.5 * d1 * d2;
+        const peri = 4 * sInput;
+
+        areaStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> L = ½ × d₁ × d₂</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> L = ½ × ${d1} × ${d2} = ½ × ${d1 * d2}</div>
+            <div class="text-amber-300 font-bold text-sm"><strong>Hasil Luas:</strong> L = ${formatNum(area)} cm²</div>
+          </div>`;
+
+        periStepsHtml = `
+          <div class="space-y-1">
+            ${sCalculated ? `<div class="text-slate-400"><strong>Hitung Sisi (s):</strong> s = √((d₁/2)² + (d₂/2)²) = √(${d1/2}² + ${d2/2}²) = ${formatNum(sInput)} cm</div>` : ''}
+            <div class="text-slate-400"><strong>Rumus Keliling:</strong> K = 4 × s</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> K = 4 × ${formatNum(sInput)}</div>
+            <div class="text-emerald-300 font-bold text-sm"><strong>Hasil Keliling:</strong> K = ${formatNum(peri)} cm</div>
+          </div>`;
+
+      } else if (shapeType === 'layang_layang') {
+        shapeTitle = 'Layang-Layang';
+        const d1 = parseFloat(document.getElementById('c-ll-d1')?.value) || 0;
+        const d2 = parseFloat(document.getElementById('c-ll-d2')?.value) || 0;
+        const a = parseFloat(document.getElementById('c-ll-a')?.value) || 0;
+        const b = parseFloat(document.getElementById('c-ll-b')?.value) || 0;
+
+        const area = 0.5 * d1 * d2;
+        const peri = 2 * (a + b);
+
+        areaStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> L = ½ × d₁ × d₂</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> L = ½ × ${d1} × ${d2} = ½ × ${d1 * d2}</div>
+            <div class="text-amber-300 font-bold text-sm"><strong>Hasil Luas:</strong> L = ${formatNum(area)} cm²</div>
+          </div>`;
+
+        periStepsHtml = `
+          <div class="space-y-1">
+            <div class="text-slate-400"><strong>Rumus:</strong> K = 2 × (sisi pendek + sisi panjang) = 2 × (a + b)</div>
+            <div class="text-slate-300"><strong>Substitusi:</strong> K = 2 × (${a} + ${b}) = 2 × ${a + b}</div>
+            <div class="text-emerald-300 font-bold text-sm"><strong>Hasil Keliling:</strong> K = ${formatNum(peri)} cm</div>
+          </div>`;
       }
 
       resultBox.innerHTML = `
-        <h4 class="font-extrabold text-sm text-slate-200 border-b border-slate-700 pb-2">Hasil Kalkulasi Selesai ✓</h4>
-        ${stepsHtml}
+        <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+          <h4 class="font-black text-sm text-amber-400 uppercase tracking-wide">Detail Penjabaran: ${shapeTitle}</h4>
+          <span class="text-[10px] bg-brand-500/20 text-brand-300 font-bold px-2.5 py-1 rounded-full border border-brand-500/30">Langkah Pengerjaan Lengkap</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono pt-1">
+          <!-- Box Luas -->
+          <div class="bg-slate-800/90 p-4 rounded-2xl border border-amber-500/30 space-y-2">
+            <span class="text-amber-400 font-bold text-xs block border-b border-slate-700 pb-1">📐 PERHITUNGAN LUAS (L)</span>
+            ${areaStepsHtml}
+          </div>
+
+          <!-- Box Keliling -->
+          <div class="bg-slate-800/90 p-4 rounded-2xl border border-emerald-500/30 space-y-2">
+            <span class="text-emerald-400 font-bold text-xs block border-b border-slate-700 pb-1">📏 PERHITUNGAN KELILING (K)</span>
+            ${periStepsHtml}
+          </div>
+        </div>
       `;
       resultBox.classList.remove('hidden');
     }
-
 
     /* =================================================================
        10. GAME "SIAPAKAH AKU?" ENGINE
